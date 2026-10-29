@@ -18,7 +18,7 @@ const SECTION_CHANNELS: ReadonlyArray<{ section: string; channel: string }> = [
 @ApiTags('realtime')
 @ApiCookieAuth(AUTH_COOKIES.ACCESS)
 @UseGuards(JwtAuthGuard)
-@Controller({ version: '1' })
+@Controller()
 export class RealtimeController {
   constructor(
     private readonly realtime: RealtimeService,

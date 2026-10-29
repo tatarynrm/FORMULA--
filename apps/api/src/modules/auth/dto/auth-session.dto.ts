@@ -27,7 +27,7 @@ export class AuthUserDto {
   @ApiProperty()
   onboardingCompleted!: boolean;
 
-  @ApiProperty({ format: 'uuid', nullable: true, description: 'Open at /api/v1/files/:id' })
+  @ApiProperty({ format: 'uuid', nullable: true, description: 'Open at /api/files/:id' })
   avatarFileId!: string | null;
 
   @ApiProperty({ description: 'False for a Google account that has not set a password yet' })

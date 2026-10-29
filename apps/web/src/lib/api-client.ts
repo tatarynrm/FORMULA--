@@ -36,7 +36,7 @@ let refreshInFlight: Promise<boolean> | null = null;
 
 /** Renews the session cookies once. Also used by file uploads, which do not go through `apiFetch`. */
 export function refreshSession(): Promise<boolean> {
-  refreshInFlight ??= fetch(`${env.NEXT_PUBLIC_API_URL}/v1/auth/refresh`, {
+  refreshInFlight ??= fetch(`${env.NEXT_PUBLIC_API_URL}/auth/refresh`, {
     method: 'POST',
     credentials: 'include',
   })
@@ -93,7 +93,7 @@ async function request<T>(path: string, options: ApiFetchOptions): Promise<ApiSu
 /**
  * Typed fetch wrapper for the Formula api. Unwraps `ApiSuccessResponse.data`, converts
  * `ApiErrorResponse` into `ApiClientError` and transparently refreshes an expired session once.
- * `path` is relative to the api base URL, e.g. `/v1/auth/login`.
+ * `path` is relative to the api base URL, e.g. `/auth/login`.
  */
 export async function apiFetch<T>(path: string, options: ApiFetchOptions = {}): Promise<T> {
   return (await request<T>(path, options)).data;

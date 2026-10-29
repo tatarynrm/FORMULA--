@@ -5,7 +5,7 @@ import { execSync } from 'node:child_process';
 import { rmSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 
-const API = process.env.API_URL ?? 'http://localhost:4000/api/v1';
+const API = process.env.API_URL ?? 'http://localhost:4000/api';
 const REPO = fileURLToPath(new URL('../../../', import.meta.url));
 const stamp = Date.now().toString(36);
 

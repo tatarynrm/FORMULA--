@@ -20,7 +20,7 @@ const USERINFO_URL = 'https://openidconnect.googleapis.com/v1/userinfo';
 /**
  * The OAuth 2.0 "authorization code" flow with Google, done with plain `fetch`: build the consent
  * url, swap the returned code for tokens, read the profile. The callback url is the api itself
- * (`<API_PUBLIC_URL>/api/v1/auth/google/callback`), which must be registered in Google Cloud.
+ * (`<API_PUBLIC_URL>/api/auth/google/callback`), which must be registered in Google Cloud.
  */
 @Injectable()
 export class GoogleAuthService {
@@ -32,7 +32,7 @@ export class GoogleAuthService {
   constructor(config: ConfigService<Env, true>) {
     this.clientId = config.get('GOOGLE_CLIENT_ID', { infer: true });
     this.clientSecret = config.get('GOOGLE_CLIENT_SECRET', { infer: true });
-    this.callbackUrl = `${config.get('API_PUBLIC_URL', { infer: true })}/api/v1/auth/google/callback`;
+    this.callbackUrl = `${config.get('API_PUBLIC_URL', { infer: true })}/api/auth/google/callback`;
 
     if (this.enabled) this.logger.log(`Google sign-in: callback ${this.callbackUrl}`);
     else this.logger.warn('Google sign-in is off (set GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET)');

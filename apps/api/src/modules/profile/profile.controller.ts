@@ -11,7 +11,7 @@ import { ProfileService } from './profile.service.js';
 @ApiTags('profile')
 @ApiCookieAuth(AUTH_COOKIES.ACCESS)
 @UseGuards(JwtAuthGuard)
-@Controller({ path: 'profile', version: '1' })
+@Controller('profile')
 export class ProfileController {
   constructor(private readonly profile: ProfileService) {}
 

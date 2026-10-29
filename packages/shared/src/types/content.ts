@@ -1,6 +1,6 @@
 import type { ContentStatus, MaterialKind } from '../constants/content.js';
 
-/** A video or document attached to a subtopic. `fileId` is opened at `/api/v1/files/:id`. */
+/** A video or document attached to a subtopic. `fileId` is opened at `/api/files/:id`. */
 export interface Material {
   id: string;
   kind: MaterialKind;

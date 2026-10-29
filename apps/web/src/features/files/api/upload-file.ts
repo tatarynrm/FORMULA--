@@ -27,7 +27,7 @@ function send({
   return new Promise((resolve, reject) => {
     // `fetch` cannot report upload progress, so XMLHttpRequest is used here.
     const request = new XMLHttpRequest();
-    request.open('POST', `${env.NEXT_PUBLIC_API_URL}/v1/uploads?purpose=${purpose}`);
+    request.open('POST', `${env.NEXT_PUBLIC_API_URL}/uploads?purpose=${purpose}`);
     request.withCredentials = true;
     request.responseType = 'json';
 

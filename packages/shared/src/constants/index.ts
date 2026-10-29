@@ -1,5 +1,4 @@
 export const API_PREFIX = 'api';
-export const API_DEFAULT_VERSION = '1';
 
 /** Machine-readable error codes returned in `ApiErrorResponse.error.code`. */
 export const ERROR_CODES = {
@@ -186,7 +185,7 @@ export const TESTIMONIALS = {
 /** Live updates (notifications, chat) arrive over one Server-Sent Events stream per tab. */
 export const REALTIME = {
   /** Relative to the api base URL (`NEXT_PUBLIC_API_URL`). */
-  PATH: '/v1/events',
+  PATH: '/events',
   /** The api sends a comment this often so proxies keep the stream open. */
   KEEPALIVE_MS: 25_000,
   /** First reconnect delay of the client; it doubles up to 30 s. */

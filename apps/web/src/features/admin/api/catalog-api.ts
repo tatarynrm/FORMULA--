@@ -45,62 +45,62 @@ export interface MaterialInput {
 
 /** Subjects, topics, subtopics and their materials. The api needs the `subjects` section. */
 export const catalogApi = {
-  listSubjects: () => apiFetch<AdminSubject[]>('/v1/admin/subjects'),
-  getSubject: (id: string) => apiFetch<AdminSubjectTree>(`/v1/admin/subjects/${id}`),
+  listSubjects: () => apiFetch<AdminSubject[]>('/admin/subjects'),
+  getSubject: (id: string) => apiFetch<AdminSubjectTree>(`/admin/subjects/${id}`),
   createSubject: (input: SubjectInput) =>
-    apiFetch<AdminSubject>('/v1/admin/subjects', { method: 'POST', body: input }),
+    apiFetch<AdminSubject>('/admin/subjects', { method: 'POST', body: input }),
   updateSubject: (id: string, patch: SubjectPatch) =>
-    apiFetch<AdminSubject>(`/v1/admin/subjects/${id}`, { method: 'PATCH', body: patch }),
+    apiFetch<AdminSubject>(`/admin/subjects/${id}`, { method: 'PATCH', body: patch }),
   deleteSubject: (id: string) =>
-    apiFetch<{ deleted: true }>(`/v1/admin/subjects/${id}`, { method: 'DELETE' }),
+    apiFetch<{ deleted: true }>(`/admin/subjects/${id}`, { method: 'DELETE' }),
 
   createTopic: (subjectId: string, title: string) =>
-    apiFetch<AdminSubjectTree>(`/v1/admin/subjects/${subjectId}/topics`, {
+    apiFetch<AdminSubjectTree>(`/admin/subjects/${subjectId}/topics`, {
       method: 'POST',
       body: { title },
     }),
   updateTopic: (id: string, patch: TopicPatch) =>
-    apiFetch<{ updated: true }>(`/v1/admin/topics/${id}`, { method: 'PATCH', body: patch }),
+    apiFetch<{ updated: true }>(`/admin/topics/${id}`, { method: 'PATCH', body: patch }),
   deleteTopic: (id: string) =>
-    apiFetch<{ deleted: true }>(`/v1/admin/topics/${id}`, { method: 'DELETE' }),
+    apiFetch<{ deleted: true }>(`/admin/topics/${id}`, { method: 'DELETE' }),
 
   createSubtopic: (topicId: string, input: SubtopicInput) =>
-    apiFetch<{ id: string }>(`/v1/admin/topics/${topicId}/subtopics`, {
+    apiFetch<{ id: string }>(`/admin/topics/${topicId}/subtopics`, {
       method: 'POST',
       body: input,
     }),
-  getSubtopic: (id: string) => apiFetch<AdminSubtopic>(`/v1/admin/subtopics/${id}`),
+  getSubtopic: (id: string) => apiFetch<AdminSubtopic>(`/admin/subtopics/${id}`),
   updateSubtopic: (id: string, patch: SubtopicPatch) =>
-    apiFetch<AdminSubtopic>(`/v1/admin/subtopics/${id}`, { method: 'PATCH', body: patch }),
+    apiFetch<AdminSubtopic>(`/admin/subtopics/${id}`, { method: 'PATCH', body: patch }),
   deleteSubtopic: (id: string) =>
-    apiFetch<{ deleted: true }>(`/v1/admin/subtopics/${id}`, { method: 'DELETE' }),
+    apiFetch<{ deleted: true }>(`/admin/subtopics/${id}`, { method: 'DELETE' }),
 
   // Ordering: `ids` are the ids of ALL siblings in the new order.
   reorderSubjects: (ids: string[]) =>
-    apiFetch<{ ordered: true }>('/v1/admin/subjects/order', { method: 'PUT', body: { ids } }),
+    apiFetch<{ ordered: true }>('/admin/subjects/order', { method: 'PUT', body: { ids } }),
   reorderTopics: (subjectId: string, ids: string[]) =>
-    apiFetch<{ ordered: true }>(`/v1/admin/subjects/${subjectId}/topics/order`, {
+    apiFetch<{ ordered: true }>(`/admin/subjects/${subjectId}/topics/order`, {
       method: 'PUT',
       body: { ids },
     }),
   reorderSubtopics: (topicId: string, ids: string[]) =>
-    apiFetch<{ ordered: true }>(`/v1/admin/topics/${topicId}/subtopics/order`, {
+    apiFetch<{ ordered: true }>(`/admin/topics/${topicId}/subtopics/order`, {
       method: 'PUT',
       body: { ids },
     }),
   reorderMaterials: (subtopicId: string, ids: string[]) =>
-    apiFetch<{ ordered: true }>(`/v1/admin/subtopics/${subtopicId}/materials/order`, {
+    apiFetch<{ ordered: true }>(`/admin/subtopics/${subtopicId}/materials/order`, {
       method: 'PUT',
       body: { ids },
     }),
 
   addMaterial: (subtopicId: string, input: MaterialInput) =>
-    apiFetch<Material>(`/v1/admin/subtopics/${subtopicId}/materials`, {
+    apiFetch<Material>(`/admin/subtopics/${subtopicId}/materials`, {
       method: 'POST',
       body: input,
     }),
   renameMaterial: (id: string, title: string) =>
-    apiFetch<{ updated: true }>(`/v1/admin/materials/${id}`, { method: 'PATCH', body: { title } }),
+    apiFetch<{ updated: true }>(`/admin/materials/${id}`, { method: 'PATCH', body: { title } }),
   deleteMaterial: (id: string) =>
-    apiFetch<{ deleted: true }>(`/v1/admin/materials/${id}`, { method: 'DELETE' }),
+    apiFetch<{ deleted: true }>(`/admin/materials/${id}`, { method: 'DELETE' }),
 };

@@ -2,7 +2,7 @@ import type { MessengerBot, MessengerBotLink, MessengerBotStatus } from '@formul
 
 import { apiFetch } from '@/lib/api-client';
 
-const base = (provider: MessengerBot) => `/v1/messengers/${encodeURIComponent(provider)}`;
+const base = (provider: MessengerBot) => `/messengers/${encodeURIComponent(provider)}`;
 
 /** Connecting a messenger bot (Telegram first) to the signed-in account. */
 export const messengersApi = {

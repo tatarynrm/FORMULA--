@@ -21,7 +21,7 @@ import { StaffService } from './staff.service.js';
 /** Team management: who is an admin and which sections each subadmin may use. */
 @ApiTags('admin')
 @SuperadminOnly()
-@Controller({ path: 'admin/staff', version: '1' })
+@Controller('admin/staff')
 export class StaffController {
   constructor(private readonly staff: StaffService) {}
 

@@ -48,7 +48,7 @@ const UUID = new ParseUUIDPipe();
 /** Subjects, topics, subtopics and their materials. Needs the `subjects` section. */
 @ApiTags('admin')
 @AdminSection('subjects')
-@Controller({ path: 'admin', version: '1' })
+@Controller('admin')
 export class CatalogAdminController {
   constructor(private readonly catalog: CatalogService) {}
 
@@ -204,7 +204,7 @@ export class CatalogAdminController {
 /** Which subtopics a student can open. Needs the `students` section. */
 @ApiTags('admin')
 @AdminSection('students')
-@Controller({ path: 'admin', version: '1' })
+@Controller('admin')
 export class AccessGrantsController {
   constructor(private readonly catalog: CatalogService) {}
 
@@ -280,7 +280,7 @@ export class AccessGrantsController {
 @ApiTags('catalog')
 @ApiCookieAuth(AUTH_COOKIES.ACCESS)
 @UseGuards(JwtAuthGuard)
-@Controller({ path: 'catalog', version: '1' })
+@Controller('catalog')
 export class CatalogController {
   constructor(private readonly catalog: CatalogService) {}
 

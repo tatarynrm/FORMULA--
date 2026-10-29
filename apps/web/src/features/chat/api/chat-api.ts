@@ -43,9 +43,9 @@ function threadEndpoints(base: string): ThreadEndpoints {
 }
 
 /** The student's own conversation with the support team (created on the first call). */
-export const studentChatApi: ThreadEndpoints = threadEndpoints('/v1/chat');
+export const studentChatApi: ThreadEndpoints = threadEndpoints('/chat');
 
-const ADMIN_BASE = '/v1/admin/chat/conversations';
+const ADMIN_BASE = '/admin/chat/conversations';
 
 /** The api needs the `support` section: it answers 403 for everyone else. */
 export const adminChatApi = {

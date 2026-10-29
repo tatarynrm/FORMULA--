@@ -51,7 +51,7 @@ function safePath(value: unknown): string {
 }
 
 @ApiTags('auth')
-@Controller({ path: 'auth', version: '1' })
+@Controller('auth')
 export class AuthController {
   private readonly logger = new Logger(AuthController.name);
 

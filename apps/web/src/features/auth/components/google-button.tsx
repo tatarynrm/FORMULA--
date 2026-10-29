@@ -35,7 +35,7 @@ export function GoogleButton({ next }: { next?: string }) {
 
   return (
     <Button asChild variant="secondary" className="w-full">
-      <a href={`${env.NEXT_PUBLIC_API_URL}/v1/auth/google${query}`}>
+      <a href={`${env.NEXT_PUBLIC_API_URL}/auth/google${query}`}>
         <GoogleIcon />
         {t.auth.continueWithGoogle}
       </a>

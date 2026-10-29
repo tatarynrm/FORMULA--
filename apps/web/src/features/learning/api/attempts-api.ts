@@ -23,18 +23,18 @@ export interface SaveAnswerInput {
 export const attemptsApi = {
   /** Starts a new attempt, or returns the unfinished one (then the input is ignored). */
   start: (testId: string, input: StartAttemptInput) =>
-    apiFetch<AttemptSession>(`/v1/tests/${testId}/attempts`, { method: 'POST', body: input }),
-  history: (testId: string) => apiFetch<AttemptSummary[]>(`/v1/tests/${testId}/attempts`),
+    apiFetch<AttemptSession>(`/tests/${testId}/attempts`, { method: 'POST', body: input }),
+  history: (testId: string) => apiFetch<AttemptSummary[]>(`/tests/${testId}/attempts`),
   /** Answers 409 `ATTEMPT_FINISHED` when the attempt is already finished. */
-  session: (attemptId: string) => apiFetch<AttemptSession>(`/v1/attempts/${attemptId}`),
+  session: (attemptId: string) => apiFetch<AttemptSession>(`/attempts/${attemptId}`),
   /** Answers 409 with `ATTEMPT_FINISHED`, `TIME_OVER` or `ANSWER_FINAL` when the answer cannot be taken. */
   saveAnswer: (attemptId: string, questionId: string, input: SaveAnswerInput) =>
-    apiFetch<SaveAnswerResult>(`/v1/attempts/${attemptId}/answers/${questionId}`, {
+    apiFetch<SaveAnswerResult>(`/attempts/${attemptId}/answers/${questionId}`, {
       method: 'PUT',
       body: input,
     }),
   finish: (attemptId: string) =>
-    apiFetch<AttemptResult>(`/v1/attempts/${attemptId}/finish`, { method: 'POST' }),
+    apiFetch<AttemptResult>(`/attempts/${attemptId}/finish`, { method: 'POST' }),
   /** Answers 409 `CONFLICT` while the attempt is still in progress. */
-  result: (attemptId: string) => apiFetch<AttemptResult>(`/v1/attempts/${attemptId}/result`),
+  result: (attemptId: string) => apiFetch<AttemptResult>(`/attempts/${attemptId}/result`),
 };

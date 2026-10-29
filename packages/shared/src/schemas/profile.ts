@@ -27,7 +27,7 @@ export const profileSchema = z.object({
   name: z.string(),
   surname: z.string(),
   email: z.string(),
-  /** Uploaded avatar, opened at `/api/v1/files/:id`. */
+  /** Uploaded avatar, opened at `/api/files/:id`. */
   avatarFileId: z.uuid().nullable(),
   /** `+380 98 938 55 85`, optional. */
   phone: z.string().nullable(),

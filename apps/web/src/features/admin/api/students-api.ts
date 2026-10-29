@@ -21,14 +21,14 @@ export const studentsApi = {
     if (q) params.set('q', q);
     if (online) params.set('online', 'true');
     if (sort) params.set('sort', sort);
-    return apiFetchPage<StudentListItem>(`/v1/admin/students?${params.toString()}`);
+    return apiFetchPage<StudentListItem>(`/admin/students?${params.toString()}`);
   },
-  get: (id: string) => apiFetch<StudentDetail>(`/v1/admin/students/${id}`),
+  get: (id: string) => apiFetch<StudentDetail>(`/admin/students/${id}`),
   /** Newest first. */
   attempts: (id: string, limit = 50) =>
-    apiFetch<StudentAttemptItem[]>(`/v1/admin/students/${id}/attempts?limit=${limit}`),
+    apiFetch<StudentAttemptItem[]>(`/admin/students/${id}/attempts?limit=${limit}`),
   rename: (id: string, patch: StudentNamePatch) =>
-    apiFetch<StudentDetail>(`/v1/admin/students/${id}`, { method: 'PATCH', body: patch }),
+    apiFetch<StudentDetail>(`/admin/students/${id}`, { method: 'PATCH', body: patch }),
   /** Removes the account with everything it owns (attempts, grants, files). */
-  remove: (id: string) => apiFetch<unknown>(`/v1/admin/students/${id}`, { method: 'DELETE' }),
+  remove: (id: string) => apiFetch<unknown>(`/admin/students/${id}`, { method: 'DELETE' }),
 };

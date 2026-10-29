@@ -31,7 +31,7 @@ const UUID = new ParseUUIDPipe();
 /** Needs the `students` section: superadmins, or subadmins who were granted it. */
 @ApiTags('admin')
 @AdminSection('students')
-@Controller({ path: 'admin/students', version: '1' })
+@Controller('admin/students')
 export class StudentsController {
   constructor(private readonly students: StudentsService) {}
 

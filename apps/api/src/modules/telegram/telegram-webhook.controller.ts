@@ -21,7 +21,7 @@ function sameSecret(received: string | undefined, expected: string): boolean {
  */
 @ApiExcludeController()
 @SkipThrottle()
-@Controller({ path: 'messengers/telegram/webhook', version: '1' })
+@Controller('messengers/telegram/webhook')
 export class TelegramWebhookController {
   constructor(
     private readonly updates: TelegramUpdatesService,

@@ -50,7 +50,7 @@ server {
     # Requests are streamed to the api instead of being buffered on the nginx disk first.
     client_max_body_size 1100m;
     proxy_request_buffering off;
-    # Live updates (GET /api/v1/events) are a long Server-Sent Events response: the api sends a
+    # Live updates (GET /api/events) are a long Server-Sent Events response: the api sends a
     # keepalive every 25 s (REALTIME.KEEPALIVE_MS) and the "X-Accel-Buffering: no" header, so the
     # read timeout only needs to stay above that and nothing here buffers the stream.
     proxy_read_timeout 900s;

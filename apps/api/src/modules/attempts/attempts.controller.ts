@@ -35,7 +35,7 @@ const UUID = new ParseUUIDPipe();
 @ApiTags('attempts')
 @ApiCookieAuth(AUTH_COOKIES.ACCESS)
 @UseGuards(JwtAuthGuard)
-@Controller({ version: '1' })
+@Controller()
 export class AttemptsController {
   constructor(private readonly attempts: AttemptsService) {}
 
@@ -102,7 +102,7 @@ export class AttemptsController {
 /** Grading of the written answers of situational tests. Needs the `reviews` section. */
 @ApiTags('admin')
 @AdminSection('reviews')
-@Controller({ path: 'admin/reviews', version: '1' })
+@Controller('admin/reviews')
 export class ReviewsController {
   constructor(private readonly attempts: AttemptsService) {}
 

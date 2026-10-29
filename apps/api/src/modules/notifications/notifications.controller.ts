@@ -31,7 +31,7 @@ const UUID = new ParseUUIDPipe();
 @ApiTags('notifications')
 @ApiCookieAuth(AUTH_COOKIES.ACCESS)
 @UseGuards(JwtAuthGuard)
-@Controller({ path: 'notifications', version: '1' })
+@Controller('notifications')
 export class NotificationsController {
   constructor(private readonly notifications: NotificationsService) {}
 
@@ -71,7 +71,7 @@ export class NotificationsController {
 /** News for every student. Needs the `news` section. */
 @ApiTags('admin')
 @AdminSection('news')
-@Controller({ path: 'admin/news', version: '1' })
+@Controller('admin/news')
 export class NewsAdminController {
   constructor(private readonly notifications: NotificationsService) {}
 

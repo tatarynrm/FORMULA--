@@ -11,7 +11,7 @@ import { ProgressService } from './progress.service.js';
 @ApiTags('progress')
 @ApiCookieAuth(AUTH_COOKIES.ACCESS)
 @UseGuards(JwtAuthGuard)
-@Controller({ path: 'progress', version: '1' })
+@Controller('progress')
 export class ProgressController {
   constructor(private readonly progress: ProgressService) {}
 

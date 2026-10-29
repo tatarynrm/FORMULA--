@@ -31,7 +31,7 @@ export class MessengerSettingsDto {
 @ApiTags('messengers')
 @ApiCookieAuth(AUTH_COOKIES.ACCESS)
 @UseGuards(JwtAuthGuard)
-@Controller({ path: 'messengers/:provider', version: '1' })
+@Controller('messengers/:provider')
 export class MessengersController {
   constructor(private readonly messengers: MessengersService) {}
 

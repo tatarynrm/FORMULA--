@@ -1,7 +1,7 @@
 import sanitizeHtml from 'sanitize-html';
 
 /** Images in rich text may only point to our own file endpoint (relative or absolute). */
-const OWN_FILE_URL = /^(https?:\/\/[^/\s]+)?\/api\/v1\/files\/[0-9a-f-]{36}$/i;
+const OWN_FILE_URL = /^(https?:\/\/[^/\s]+)?\/api\/files\/[0-9a-f-]{36}$/i;
 
 /**
  * Cleans the HTML written in the rich text editor before it is stored (and later rendered with

@@ -16,13 +16,13 @@ import { TELEGRAM_COMMANDS } from './telegram.texts.js';
 const POLL_SECONDS = 25;
 const RETRY_MS = 3000;
 const CONFLICT_RETRY_MS = 10_000;
-const WEBHOOK_PATH = '/api/v1/messengers/telegram/webhook';
+const WEBHOOK_PATH = '/api/messengers/telegram/webhook';
 
 /**
  * Brings the updates of the bot to `TelegramBotService`, one of two ways (`TELEGRAM_MODE`):
  *  - polling (default): this api asks Telegram for new messages. Needs no public address, so it is
  *    what development uses. Run it on ONE api instance only.
- *  - webhook: Telegram calls `POST /api/v1/messengers/telegram/webhook` (secret in a header).
+ *  - webhook: Telegram calls `POST /api/messengers/telegram/webhook` (secret in a header).
  *    What production uses; works with any number of instances.
  * Without `TELEGRAM_BOT_TOKEN` it does nothing at all.
  */

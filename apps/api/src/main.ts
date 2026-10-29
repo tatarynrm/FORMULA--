@@ -1,5 +1,5 @@
-import { API_DEFAULT_VERSION, API_PREFIX } from '@formula/shared';
-import { Logger, VersioningType } from '@nestjs/common';
+import { API_PREFIX } from '@formula/shared';
+import { Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import type { NestExpressApplication } from '@nestjs/platform-express';
@@ -43,7 +43,6 @@ async function bootstrap(): Promise<void> {
   });
 
   app.setGlobalPrefix(API_PREFIX);
-  app.enableVersioning({ type: VersioningType.URI, defaultVersion: API_DEFAULT_VERSION });
   app.enableShutdownHooks();
 
   setupSwagger(app);

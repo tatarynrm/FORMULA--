@@ -38,7 +38,7 @@ const UUID = new ParseUUIDPipe();
 @ApiTags('chat')
 @ApiCookieAuth(AUTH_COOKIES.ACCESS)
 @UseGuards(JwtAuthGuard)
-@Controller({ path: 'chat', version: '1' })
+@Controller('chat')
 export class ChatController {
   constructor(private readonly chat: ChatService) {}
 
@@ -83,7 +83,7 @@ export class ChatController {
 /** The support side. Needs the `support` section. */
 @ApiTags('admin')
 @AdminSection('support')
-@Controller({ path: 'admin/chat/conversations', version: '1' })
+@Controller('admin/chat/conversations')
 export class ChatSupportController {
   constructor(private readonly chat: ChatService) {}
 

@@ -13,29 +13,29 @@ import { apiFetch, apiFetchPage } from '@/lib/api-client';
 
 /** Public side: the published testimonials and leaving one. */
 export const testimonialsApi = {
-  listPublic: () => apiFetch<PublicTestimonial[]>('/v1/testimonials'),
+  listPublic: () => apiFetch<PublicTestimonial[]>('/testimonials'),
 
   submit: (input: SubmitTestimonialInput) =>
-    apiFetch<SubmitTestimonialResult>('/v1/testimonials', { method: 'POST', body: input }),
+    apiFetch<SubmitTestimonialResult>('/testimonials', { method: 'POST', body: input }),
 
-  mine: () => apiFetch<MyTestimonial[]>('/v1/testimonials/mine'),
+  mine: () => apiFetch<MyTestimonial[]>('/testimonials/mine'),
 };
 
 /** Moderation (the `testimonials` section). */
 export const adminTestimonialsApi = {
   list: (status: TestimonialStatus, page: number, limit: number) =>
     apiFetchPage<AdminTestimonial>(
-      `/v1/admin/testimonials?status=${status}&page=${page}&limit=${limit}`,
+      `/admin/testimonials?status=${status}&page=${page}&limit=${limit}`,
     ),
 
-  counts: () => apiFetch<TestimonialCounts>('/v1/admin/testimonials/counts'),
+  counts: () => apiFetch<TestimonialCounts>('/admin/testimonials/counts'),
 
   update: (id: string, input: UpdateTestimonialInput) =>
-    apiFetch<AdminTestimonial>(`/v1/admin/testimonials/${encodeURIComponent(id)}`, {
+    apiFetch<AdminTestimonial>(`/admin/testimonials/${encodeURIComponent(id)}`, {
       method: 'PATCH',
       body: input,
     }),
 
   remove: (id: string) =>
-    apiFetch<null>(`/v1/admin/testimonials/${encodeURIComponent(id)}`, { method: 'DELETE' }),
+    apiFetch<null>(`/admin/testimonials/${encodeURIComponent(id)}`, { method: 'DELETE' }),
 };

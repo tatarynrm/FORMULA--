@@ -57,7 +57,7 @@ function parseRange(
 @ApiTags('files')
 @ApiCookieAuth(AUTH_COOKIES.ACCESS)
 @UseGuards(JwtAuthGuard)
-@Controller({ version: '1' })
+@Controller()
 export class FilesController {
   constructor(
     private readonly files: FilesService,

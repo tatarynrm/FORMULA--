@@ -44,7 +44,7 @@ const UUID = new ParseUUIDPipe();
 
 /** Public side: the published testimonials, and leaving one (as a guest or signed in). */
 @ApiTags('testimonials')
-@Controller({ path: 'testimonials', version: '1' })
+@Controller('testimonials')
 export class TestimonialsController {
   constructor(
     private readonly testimonials: TestimonialsService,
@@ -104,7 +104,7 @@ export class TestimonialsController {
 /** Moderation. Needs the `testimonials` section: superadmins, or subadmins who were granted it. */
 @ApiTags('admin')
 @AdminSection('testimonials')
-@Controller({ path: 'admin/testimonials', version: '1' })
+@Controller('admin/testimonials')
 export class TestimonialsAdminController {
   constructor(private readonly testimonials: TestimonialsService) {}
 

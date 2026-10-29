@@ -31,7 +31,7 @@ import { MenuService } from './menu.service.js';
 @ApiTags('menu')
 @ApiCookieAuth(AUTH_COOKIES.ACCESS)
 @UseGuards(JwtAuthGuard)
-@Controller({ path: 'menu', version: '1' })
+@Controller('menu')
 export class MenuController {
   constructor(private readonly menu: MenuService) {}
 
@@ -54,7 +54,7 @@ export class MenuController {
 /** Menu editor, superadmin only. */
 @ApiTags('admin')
 @SuperadminOnly()
-@Controller({ path: 'admin/menu', version: '1' })
+@Controller('admin/menu')
 export class MenuAdminController {
   constructor(private readonly menu: MenuService) {}
 

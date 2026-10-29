@@ -12,21 +12,21 @@ export const notificationsApi = {
   /** Newest first; `unreadOnly` asks the api for the unread ones only. */
   list: ({ page, limit, unreadOnly }: { page: number; limit: number; unreadOnly: boolean }) =>
     apiFetchPage<NotificationItem>(
-      `/v1/notifications?page=${page}&limit=${limit}${unreadOnly ? '&unread=true' : ''}`,
+      `/notifications?page=${page}&limit=${limit}${unreadOnly ? '&unread=true' : ''}`,
     ),
 
-  summary: () => apiFetch<NotificationSummary>('/v1/notifications/summary'),
+  summary: () => apiFetch<NotificationSummary>('/notifications/summary'),
 
   markRead: (id: string) =>
-    apiFetch<NotificationItem>(`/v1/notifications/${encodeURIComponent(id)}/read`, {
+    apiFetch<NotificationItem>(`/notifications/${encodeURIComponent(id)}/read`, {
       method: 'POST',
     }),
 
-  markAllRead: () => apiFetch<{ unread: number }>('/v1/notifications/read-all', { method: 'POST' }),
+  markAllRead: () => apiFetch<{ unread: number }>('/notifications/read-all', { method: 'POST' }),
 
   sendNews: (input: SendBroadcastInput) =>
-    apiFetch<NotificationBroadcast>('/v1/admin/news', { method: 'POST', body: input }),
+    apiFetch<NotificationBroadcast>('/admin/news', { method: 'POST', body: input }),
 
   newsHistory: (page: number, limit: number) =>
-    apiFetchPage<NotificationBroadcast>(`/v1/admin/news?page=${page}&limit=${limit}`),
+    apiFetchPage<NotificationBroadcast>(`/admin/news?page=${page}&limit=${limit}`),
 };

@@ -21,16 +21,16 @@ function toSearch(query: TestListQuery): string {
 }
 
 export const testsApi = {
-  list: (query: TestListQuery) => apiFetch<StudentTestSummary[]>(`/v1/tests?${toSearch(query)}`),
+  list: (query: TestListQuery) => apiFetch<StudentTestSummary[]>(`/tests?${toSearch(query)}`),
   filters: (collection: ListedCollection) =>
-    apiFetch<TestFilterOptions>(`/v1/tests/filters?collection=${collection}`),
-  one: (testId: string) => apiFetch<StudentTestSummary>(`/v1/tests/${testId}`),
+    apiFetch<TestFilterOptions>(`/tests/filters?collection=${collection}`),
+  one: (testId: string) => apiFetch<StudentTestSummary>(`/tests/${testId}`),
   /** Answers 403 while the student has no access to the subtopic, so ask only for open ones. */
   forSubtopic: (subtopicId: string) =>
-    apiFetch<StudentTestSummary[]>(`/v1/subtopics/${subtopicId}/tests`),
-  favorites: () => apiFetch<StudentTestSummary[]>('/v1/favorites'),
+    apiFetch<StudentTestSummary[]>(`/subtopics/${subtopicId}/tests`),
+  favorites: () => apiFetch<StudentTestSummary[]>('/favorites'),
   addFavorite: (testId: string) =>
-    apiFetch<{ saved: true }>(`/v1/favorites/${testId}`, { method: 'PUT' }),
+    apiFetch<{ saved: true }>(`/favorites/${testId}`, { method: 'PUT' }),
   removeFavorite: (testId: string) =>
-    apiFetch<{ saved: false }>(`/v1/favorites/${testId}`, { method: 'DELETE' }),
+    apiFetch<{ saved: false }>(`/favorites/${testId}`, { method: 'DELETE' }),
 };

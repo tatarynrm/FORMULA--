@@ -47,7 +47,7 @@ const envSchema = z.object({
   // The bot name without @ (for the "open the bot" link); looked up with getMe when not set.
   TELEGRAM_BOT_USERNAME: optionalText().transform((value) => value?.replace(/^@/, '')),
   // polling: the api asks Telegram for updates (no public address, ONE api instance only).
-  // webhook: Telegram calls POST /api/v1/messengers/telegram/webhook (needs API_PUBLIC_URL over https).
+  // webhook: Telegram calls POST /api/messengers/telegram/webhook (needs API_PUBLIC_URL over https).
   TELEGRAM_MODE: z.enum(['polling', 'webhook']).default('polling'),
   // Secret Telegram sends with every webhook call; the webhook is closed without it.
   TELEGRAM_WEBHOOK_SECRET: optionalText(16),

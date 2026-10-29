@@ -29,7 +29,7 @@ export const authUserSchema = z.object({
   adminLevel: z.enum(ADMIN_LEVELS).nullable(),
   /** False until the student finishes (or skips) the "tell us about yourself" step. */
   onboardingCompleted: z.boolean(),
-  /** Uploaded avatar, opened at `/api/v1/files/:id`. */
+  /** Uploaded avatar, opened at `/api/files/:id`. */
   avatarFileId: z.uuid().nullable(),
   /** False for an account created with Google that has not set a password yet. */
   hasPassword: z.boolean(),

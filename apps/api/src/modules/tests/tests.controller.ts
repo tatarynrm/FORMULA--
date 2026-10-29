@@ -46,7 +46,7 @@ function parseCollection(value: string | undefined): TestCollection {
 @ApiTags('admin')
 @ApiCookieAuth(AUTH_COOKIES.ACCESS)
 @UseGuards(JwtAuthGuard)
-@Controller({ path: 'admin/tests', version: '1' })
+@Controller('admin/tests')
 export class TestsAdminController {
   constructor(private readonly tests: TestsService) {}
 
@@ -110,7 +110,7 @@ export class TestsAdminController {
 @ApiTags('tests')
 @ApiCookieAuth(AUTH_COOKIES.ACCESS)
 @UseGuards(JwtAuthGuard)
-@Controller({ version: '1' })
+@Controller()
 export class TestsController {
   constructor(private readonly tests: TestsService) {}
 

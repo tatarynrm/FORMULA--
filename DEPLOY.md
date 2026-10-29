@@ -132,7 +132,7 @@ echo "JWT_REFRESH_SECRET=$(openssl rand -base64 48)"
 
 Необов'язково (можна залишити порожнім і додати потім):
 
-- `GOOGLE_CLIENT_ID` / `GOOGLE_CLIENT_SECRET` — вхід через Google. У Google Cloud Console створіть OAuth client типу **Web application** з redirect URI `https://<DOMAIN>/api/v1/auth/google/callback`.
+- `GOOGLE_CLIENT_ID` / `GOOGLE_CLIENT_SECRET` — вхід через Google. У Google Cloud Console створіть OAuth client типу **Web application** з redirect URI `https://<DOMAIN>/api/auth/google/callback`.
 - `TELEGRAM_BOT_TOKEN`, `TELEGRAM_BOT_USERNAME`, `TELEGRAM_WEBHOOK_SECRET` (16+ випадкових символів) — Telegram-бот. Без токена бот просто спить.
 - `GOOGLE_SITE_VERIFICATION` — токен Search Console.
 
@@ -260,14 +260,14 @@ fc exec postgres psql -U formula formula    # psql до прод-бази
 docker system df && docker image prune -f   # звільнити місце від старих образів
 ```
 
-| Симптом                                 | Куди дивитись                                                                  |
-| --------------------------------------- | ------------------------------------------------------------------------------ |
-| `502 Bad Gateway`                       | `fc ps` — api або web не піднялись; `fc logs api`                              |
-| Сайт відкривається по http, не по https | крок 5 не завершився; `fc logs nginx`, `ls deploy/certbot/conf/live/`          |
-| `set POSTGRES_PASSWORD` при `up`        | не передали `--env-file .env.production` або змінна порожня                    |
-| Збірка падає / сервер зависає           | мало RAM — swap з кроку 1                                                      |
-| Вхід через Google не працює             | redirect URI в Google Console ≠ `https://<DOMAIN>/api/v1/auth/google/callback` |
-| `bad interpreter: ^M`                   | CRLF у скрипті — `sed -i 's/\r$//' deploy/init-letsencrypt.sh`                 |
+| Симптом                                 | Куди дивитись                                                               |
+| --------------------------------------- | --------------------------------------------------------------------------- |
+| `502 Bad Gateway`                       | `fc ps` — api або web не піднялись; `fc logs api`                           |
+| Сайт відкривається по http, не по https | крок 5 не завершився; `fc logs nginx`, `ls deploy/certbot/conf/live/`       |
+| `set POSTGRES_PASSWORD` при `up`        | не передали `--env-file .env.production` або змінна порожня                 |
+| Збірка падає / сервер зависає           | мало RAM — swap з кроку 1                                                   |
+| Вхід через Google не працює             | redirect URI в Google Console ≠ `https://<DOMAIN>/api/auth/google/callback` |
+| `bad interpreter: ^M`                   | CRLF у скрипті — `sed -i 's/\r$//' deploy/init-letsencrypt.sh`              |
 
 ---
 

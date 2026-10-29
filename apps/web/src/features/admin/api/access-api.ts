@@ -9,28 +9,28 @@ import { apiFetch } from '@/lib/api-client';
  */
 export const accessApi = {
   /** Flat list of every subtopic, for the "give access" picker. */
-  listSubtopics: () => apiFetch<CatalogSubtopic[]>('/v1/admin/catalog/subtopics'),
+  listSubtopics: () => apiFetch<CatalogSubtopic[]>('/admin/catalog/subtopics'),
 
-  listGrants: (userId: string) => apiFetch<SubtopicGrant[]>(`/v1/admin/students/${userId}/access`),
+  listGrants: (userId: string) => apiFetch<SubtopicGrant[]>(`/admin/students/${userId}/access`),
   revoke: (userId: string, subtopicId: string) =>
-    apiFetch<SubtopicGrant[]>(`/v1/admin/students/${userId}/access/${subtopicId}`, {
+    apiFetch<SubtopicGrant[]>(`/admin/students/${userId}/access/${subtopicId}`, {
       method: 'DELETE',
     }),
   /** Makes the single-subtopic grants of the student exactly `subtopicIds`. */
   setGrants: (userId: string, subtopicIds: string[]) =>
-    apiFetch<SubtopicGrant[]>(`/v1/admin/students/${userId}/access`, {
+    apiFetch<SubtopicGrant[]>(`/admin/students/${userId}/access`, {
       method: 'PUT',
       body: { subtopicIds },
     }),
 
   listSubjectGrants: (userId: string) =>
-    apiFetch<SubjectGrant[]>(`/v1/admin/students/${userId}/subject-access`),
+    apiFetch<SubjectGrant[]>(`/admin/students/${userId}/subject-access`),
   grantSubject: (userId: string, subjectId: string) =>
-    apiFetch<SubjectGrant[]>(`/v1/admin/students/${userId}/subject-access/${subjectId}`, {
+    apiFetch<SubjectGrant[]>(`/admin/students/${userId}/subject-access/${subjectId}`, {
       method: 'PUT',
     }),
   revokeSubject: (userId: string, subjectId: string) =>
-    apiFetch<SubjectGrant[]>(`/v1/admin/students/${userId}/subject-access/${subjectId}`, {
+    apiFetch<SubjectGrant[]>(`/admin/students/${userId}/subject-access/${subjectId}`, {
       method: 'DELETE',
     }),
 };

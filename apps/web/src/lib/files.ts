@@ -5,7 +5,7 @@ import { env } from './env';
  * session cookie on every request, so this works in `<img>`, `<video>` and links.
  */
 export function fileUrl(fileId: string): string {
-  return `${env.NEXT_PUBLIC_API_URL}/v1/files/${fileId}`;
+  return `${env.NEXT_PUBLIC_API_URL}/files/${fileId}`;
 }
 
 /**
@@ -13,7 +13,7 @@ export function fileUrl(fileId: string): string {
  * works on the landing page for visitors who are not signed in.
  */
 export function testimonialAvatarUrl(testimonialId: string): string {
-  return `${env.NEXT_PUBLIC_API_URL}/v1/testimonials/${testimonialId}/avatar`;
+  return `${env.NEXT_PUBLIC_API_URL}/testimonials/${testimonialId}/avatar`;
 }
 
 const SIZE_UNITS = ['Б', 'КБ', 'МБ', 'ГБ'] as const;

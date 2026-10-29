@@ -13,7 +13,7 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 
 import { CONTENT } from './seed-biology.content.mjs';
 
-const API = `${process.env.API_URL ?? 'http://localhost:4000'}/api/v1`;
+const API = `${process.env.API_URL ?? 'http://localhost:4000'}/api`;
 const REPO = fileURLToPath(new URL('../../../', import.meta.url));
 const CHROME = [
   'C:/Program Files/Google/Chrome/Application/chrome.exe',

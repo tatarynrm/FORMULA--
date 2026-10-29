@@ -43,16 +43,15 @@ export const testsAdminApi = {
   list: (collection: TestCollection, subtopicId?: string) => {
     const query = new URLSearchParams({ collection });
     if (subtopicId) query.set('subtopicId', subtopicId);
-    return apiFetch<TestSummary[]>(`/v1/admin/tests?${query.toString()}`);
+    return apiFetch<TestSummary[]>(`/admin/tests?${query.toString()}`);
   },
-  get: (id: string) => apiFetch<AdminTest>(`/v1/admin/tests/${id}`),
+  get: (id: string) => apiFetch<AdminTest>(`/admin/tests/${id}`),
   create: (input: CreateTestInput) =>
-    apiFetch<AdminTest>('/v1/admin/tests', { method: 'POST', body: input }),
+    apiFetch<AdminTest>('/admin/tests', { method: 'POST', body: input }),
   update: (id: string, patch: UpdateTestInput) =>
-    apiFetch<AdminTest>(`/v1/admin/tests/${id}`, { method: 'PATCH', body: patch }),
-  remove: (id: string) =>
-    apiFetch<{ deleted: true }>(`/v1/admin/tests/${id}`, { method: 'DELETE' }),
+    apiFetch<AdminTest>(`/admin/tests/${id}`, { method: 'PATCH', body: patch }),
+  remove: (id: string) => apiFetch<{ deleted: true }>(`/admin/tests/${id}`, { method: 'DELETE' }),
   /** Replaces all questions. Ids of existing questions and options are kept so attempt history survives. */
   saveQuestions: (id: string, questions: QuestionInput[]) =>
-    apiFetch<AdminTest>(`/v1/admin/tests/${id}/questions`, { method: 'PUT', body: { questions } }),
+    apiFetch<AdminTest>(`/admin/tests/${id}/questions`, { method: 'PUT', body: { questions } }),
 };
