@@ -1,0 +1,50 @@
+# Local development services. The apps themselves run on the host via `npm run dev`.
+name: formula-dev
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: formula-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: formula
+      POSTGRES_PASSWORD: formula
+      POSTGRES_DB: formula
+    ports:
+      - '5442:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U formula -d formula']
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+    container_name: formula-redis
+    restart: unless-stopped
+    ports:
+      - '6379:6379'
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ['CMD', 'redis-cli', 'ping']
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  # Optional lightweight DB browser: http://localhost:8080 (server: postgres, user/db/password: formula)
+  adminer:
+    image: adminer:latest
+    container_name: formula-adminer
+    restart: unless-stopped
+    profiles: ['tools']
+    ports:
+      - '8080:8080'
+    depends_on:
+      - postgres
+
+volumes:
+  postgres_data:
+  redis_data:

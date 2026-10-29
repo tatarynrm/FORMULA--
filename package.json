@@ -1,0 +1,38 @@
+{
+  "name": "formula",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Formula: educational platform for NMT preparation and advanced learning",
+  "packageManager": "npm@11.7.0",
+  "engines": {
+    "node": ">=22.12"
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "lint": "turbo run lint",
+    "typecheck": "turbo run typecheck",
+    "test": "turbo run test",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "db:up": "docker compose up -d postgres redis",
+    "db:down": "docker compose down",
+    "db:migrate": "npm run db:migrate -w @formula/api",
+    "db:psql": "docker compose exec postgres psql -U formula -d formula",
+    "prepare": "husky"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^21.2.3",
+    "@commitlint/config-conventional": "^21.2.3",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.4.0",
+    "prettier": "^3.9.9",
+    "prettier-plugin-tailwindcss": "^0.7.0",
+    "turbo": "^2.11.7",
+    "typescript": "~6.0.3"
+  }
+}

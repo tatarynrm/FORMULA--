@@ -1,0 +1,77 @@
+# Rendered by the nginx image (envsubst) into /etc/nginx/conf.d/default.conf. ${DOMAIN} comes from compose.
+
+server_tokens off;
+
+# Rate limit for the whole api surface; the api also has its own throttler.
+limit_req_zone $binary_remote_addr zone=api_limit:10m rate=20r/s;
+
+server {
+  listen 80;
+  listen [::]:80;
+  server_name ${DOMAIN};
+
+  # Let's Encrypt HTTP-01 challenge
+  location /.well-known/acme-challenge/ {
+    root /var/www/certbot;
+  }
+
+  location / {
+    return 301 https://$host$request_uri;
+  }
+}
+
+server {
+  listen 443 ssl;
+  listen [::]:443 ssl;
+  http2 on;
+  server_name ${DOMAIN};
+
+  ssl_certificate /etc/letsencrypt/live/${DOMAIN}/fullchain.pem;
+  ssl_certificate_key /etc/letsencrypt/live/${DOMAIN}/privkey.pem;
+  ssl_protocols TLSv1.2 TLSv1.3;
+  ssl_prefer_server_ciphers off;
+  ssl_session_cache shared:SSL:10m;
+  ssl_session_timeout 1d;
+
+  add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
+  add_header X-Content-Type-Options "nosniff" always;
+  add_header X-Frame-Options "SAMEORIGIN" always;
+  add_header Referrer-Policy "strict-origin-when-cross-origin" always;
+
+  client_max_body_size 10m;
+
+  gzip on;
+  gzip_types text/plain text/css application/json application/javascript text/xml application/xml image/svg+xml;
+
+  location /api/ {
+    limit_req zone=api_limit burst=40 nodelay;
+
+    # Lesson videos are uploaded through the api (the limit matches UPLOADS.video in @formula/shared).
+    # Requests are streamed to the api instead of being buffered on the nginx disk first.
+    client_max_body_size 1100m;
+    proxy_request_buffering off;
+    # Live updates (GET /api/v1/events) are a long Server-Sent Events response: the api sends a
+    # keepalive every 25 s (REALTIME.KEEPALIVE_MS) and the "X-Accel-Buffering: no" header, so the
+    # read timeout only needs to stay above that and nothing here buffers the stream.
+    proxy_read_timeout 900s;
+    proxy_send_timeout 900s;
+
+    proxy_pass http://api:4000;
+    proxy_http_version 1.1;
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
+  }
+
+  location / {
+    proxy_pass http://web:3000;
+    proxy_http_version 1.1;
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection "upgrade";
+  }
+}

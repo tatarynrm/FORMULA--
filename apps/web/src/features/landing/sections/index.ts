@@ -1,0 +1,10 @@
+export { AboutAuthor } from './about-author';
+export { Advantages } from './advantages';
+export { Faq } from './faq';
+export { Footer } from './footer';
+export { Hero } from './hero';
+export { KeyNumbers } from './key-numbers';
+export { LearningFormats } from './learning-formats';
+export { ResultsReviews } from './results-reviews';
+export { SocialBlock } from './social-block';
+export { TrialLessons } from './trial-lessons';

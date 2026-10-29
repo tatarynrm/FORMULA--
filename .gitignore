@@ -1,0 +1,77 @@
+# ── dependencies ────────────────────────────────────────────────
+node_modules/
+.npm/
+*.tgz
+
+# ── build output and caches ─────────────────────────────────────
+dist/
+.next/
+.turbo/
+out/
+.cache/
+*.tsbuildinfo
+next-env.d.ts
+.eslintcache
+
+# ── environment and secrets ─────────────────────────────────────
+.env
+.env.*
+!.env.example
+!.env.*.example
+*.pem
+*.key
+
+# ── runtime data (never commit) ─────────────────────────────────
+# uploaded videos, documents, images
+apps/api/storage/
+# local Redis dump, database dumps and the backup archives from README
+dump.rdb
+*.sql.gz
+*.dump
+backup-*
+uploads-*.tar.gz
+
+# ── deploy secrets and certificates ─────────────────────────────
+deploy/certbot/
+docker-compose.override.yml
+
+# ── logs and temporary files ────────────────────────────────────
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+*.pid
+tmp/
+.tmp/
+
+# ── tests ───────────────────────────────────────────────────────
+coverage/
+.nyc_output/
+test-results/
+playwright-report/
+
+# ── OS and editors ──────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+ehthumbs.db
+desktop.ini
+.idea/
+.vscode/*
+!.vscode/extensions.json
+.history/
+*.swp
+*.swo
+*~
+
+# ── AI assistants and tool state (kept out of the repository) ───
+# The instructions themselves live in noris/claude/ (mirrors the original paths);
+# these patterns keep them untracked if they are copied back for local work.
+.claude/
+CLAUDE.md
+CLAUDE.local.md
+AGENTS.md
+.turborepo-agent-guidance.lock
+
+# ── private documents: proposals, estimates, server notes ───────
+noris/

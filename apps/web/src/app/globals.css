@@ -1,0 +1,595 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Formula design tokens.
+ * Source: Figma "Formula design" -> "UI kit / FORMULA" (variables fetched via get_variable_defs).
+ * Spacing: Figma spacing/1.5 = 6px, spacing/2 = 8px, spacing/4 = 16px, which equal Tailwind's default
+ * spacing steps 1.5, 2 and 4, so no custom spacing scale is needed.
+ * Components must use these tokens (bg-card, text-muted-foreground, rounded-base, ...), never raw values.
+ */
+
+:root {
+  /* ---- Base surfaces and text ---- */
+  --background: #d9e9f5; /* Figma bg/page */
+  --foreground: #25283a; /* Figma text/primary */
+  --card: #f7fbfd; /* Figma bg/surface */
+  --card-foreground: #25283a;
+  --popover: #f7fbfd;
+  --popover-foreground: #25283a;
+  --surface-raised: #ffffff; /* Figma white (cards on top of surface) */
+  --text-secondary: #35384d; /* Figma text/secondary */
+  --surface-soft: #ecf4fa; /* Figma image/video placeholder fill */
+  --control-soft: #f4f6fd; /* Figma carousel arrow button fill */
+  --divider: #e1e5f4; /* Figma divider / footer rule */
+  --avatar: #df6387; /* Figma profile avatar fill */
+  --progress-track: #f4f4f4; /* Figma progress bar track */
+  --progress-fill: #bfd7e9; /* Figma progress bar fill */
+
+  /* ---- Brand ---- */
+  --primary: #e4739f; /* Figma button/primary/default, accent/pink */
+  --primary-hover: #d75a8b; /* Figma button/primary/hover */
+  --primary-pressed: #be3b6e; /* Figma button/primary/pressed */
+  --primary-foreground: #ffffff;
+  --accent-blue: #5b53d9; /* Figma accent/blue */
+
+  /* ---- Neutral roles (shadcn semantics) ---- */
+  --secondary: #eaf3fb; /* Figma answer/default/bg */
+  --secondary-foreground: #35384d;
+  --muted: #e7e8eb; /* Figma bg/grey */
+  --muted-foreground: #6f7896; /* Figma text/extra */
+  --accent: #eaf3fb; /* Figma answer/hover/bg */
+  --accent-foreground: #25283a;
+  --destructive: #d9534f; /* Figma question-nav/incorrect */
+  --destructive-foreground: #ffffff;
+
+  /* ---- Borders, inputs ---- */
+  --border: #d9e9f5; /* Figma Inputs/default/border */
+  --input: #d9e9f5;
+  --ring: #bfdaee; /* Figma Inputs/focus/border */
+  --input-placeholder: #716c9b; /* Figma Inputs/default/txt */
+  --input-error-bg: #fff1f3; /* Figma Inputs/error/bg */
+  --input-error-border: #c83e58; /* Figma Inputs/error/border */
+  --input-error-text: #c83e58; /* Figma Inputs/error/extra text */
+  --input-disabled-bg: #f2f2f6; /* Figma Inputs/dissabled/bg */
+  --input-disabled-border: #e1dff0; /* Figma Inputs/dissabled/border */
+  --input-disabled-text: #c1bfca; /* Figma Inputs/dissabled/txt */
+
+  /* ---- Test states (answers and question navigation) ---- */
+  --success: #3aa675; /* Figma question-nav/correct/txt, answer/correct/border */
+  --success-soft: #dff3ea; /* Figma question-nav/correct/bg */
+  --danger-soft: #fbe3e2; /* Figma question-nav/incorrect/bg */
+  --answer-border: #b4d0e5; /* Figma answer/hover/border, answer/selected/border */
+
+  /* ---- Motion (shared by scroll reveal, hover lift and the phone preview) ---- */
+  --motion-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --motion-duration: 700ms;
+  --motion-duration-sm: 250ms;
+  --shadow-lift: 0 1.25rem 2rem -1rem color-mix(in srgb, var(--foreground) 28%, transparent);
+
+  /* ---- Radii (Figma border-radius: xs 4, base 12, full 9999) ---- */
+  --r-xs: 4px;
+  --r-base: 12px;
+  --r-full: 9999px;
+  /* TODO: sync with Figma (intermediate and larger radii are not in the UI kit variables) */
+  --r-sm: 8px;
+  --r-lg: 16px;
+  --r-xl: 24px;
+
+  /* ---- Typography scale (Figma text styles, DM Sans) ---- */
+  --fs-h1: 46px;
+  --lh-h1: 68px;
+  --fs-h2: 36px;
+  --lh-h2: 48px;
+  --fs-h3: 20px;
+  --lh-h3: 28px;
+  --fs-stat: 40px;
+  --lh-stat: 48px;
+  --fs-body-xl: 24px;
+  --lh-body-xl: 32px;
+  --fs-body-lg: 18px;
+  --lh-body-lg: 26px;
+  --fs-body-md: 16px;
+  --lh-body-md: 24px;
+  --fs-body-sm: 14px;
+  --lh-body-sm: 21px;
+  --fs-body-xs: 13px; /* Figma Body/extra */
+  --lh-body-xs: 19px;
+  --fs-title: 32px; /* dashboard page title */
+  --lh-title: 36px;
+  --fs-metric: 32px; /* dashboard stat value (ExtraBold) */
+  --lh-metric: 42px;
+  /* TODO: sync with Figma (only desktop sizes exist; these are the mobile steps) */
+  --fs-title-mobile: 26px;
+  --lh-title-mobile: 32px;
+  --fs-h1-mobile: 32px;
+  --lh-h1-mobile: 40px;
+  --fs-h2-mobile: 26px;
+  --lh-h2-mobile: 34px;
+  --fs-stat-mobile: 32px;
+  --lh-stat-mobile: 40px;
+  --fs-body-xl-mobile: 20px;
+  --lh-body-xl-mobile: 28px;
+}
+
+/* TODO: sync with Figma. The Figma file has no dark theme yet; these values are a neutral derivation. */
+.dark {
+  --background: #0f1220;
+  --foreground: #f1f3fa;
+  --card: #171b2d;
+  --card-foreground: #f1f3fa;
+  --popover: #171b2d;
+  --popover-foreground: #f1f3fa;
+  --surface-raised: #1d2238;
+  --text-secondary: #c9cee3;
+  --surface-soft: #1f2540;
+  --control-soft: #232a45;
+  --divider: #2a3150;
+  --avatar: #df6387;
+  --progress-track: #232a45;
+  --progress-fill: #4a6a8a;
+
+  --primary: #e4739f;
+  --primary-hover: #ec8bb0;
+  --primary-pressed: #f3a3c1;
+  --primary-foreground: #ffffff;
+  --accent-blue: #8a84f0;
+
+  --secondary: #1f2438;
+  --secondary-foreground: #c9cee3;
+  --muted: #1f2438;
+  --muted-foreground: #9aa3c4;
+  --accent: #232a45;
+  --accent-foreground: #f1f3fa;
+  --destructive: #ef6b67;
+  --destructive-foreground: #ffffff;
+
+  --border: #2a3150;
+  --input: #2a3150;
+  --ring: #4a5580;
+  --input-placeholder: #8a8fb5;
+  --input-error-bg: #3a1d27;
+  --input-error-border: #ef6b67;
+  --input-error-text: #ff9a9a;
+  --input-disabled-bg: #1a1e30;
+  --input-disabled-border: #252b45;
+  --input-disabled-text: #5c6385;
+
+  --success: #4cc08d;
+  --success-soft: #153326;
+  --danger-soft: #3a1d27;
+  --answer-border: #3a4468;
+}
+
+@theme inline {
+  --font-sans:
+    var(--font-dm-sans), var(--font-onest), ui-sans-serif, system-ui, -apple-system, 'Segoe UI',
+    sans-serif;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-surface-raised: var(--surface-raised);
+  --color-text-secondary: var(--text-secondary);
+  --color-surface-soft: var(--surface-soft);
+  --color-control-soft: var(--control-soft);
+  --color-divider: var(--divider);
+  --color-avatar: var(--avatar);
+  --color-progress-track: var(--progress-track);
+  --color-progress-fill: var(--progress-fill);
+
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-pressed: var(--primary-pressed);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-accent-blue: var(--accent-blue);
+
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-input-placeholder: var(--input-placeholder);
+  --color-input-error-bg: var(--input-error-bg);
+  --color-input-error-border: var(--input-error-border);
+  --color-input-error-text: var(--input-error-text);
+  --color-input-disabled-bg: var(--input-disabled-bg);
+  --color-input-disabled-border: var(--input-disabled-border);
+  --color-input-disabled-text: var(--input-disabled-text);
+
+  --color-success: var(--success);
+  --color-success-soft: var(--success-soft);
+  --color-danger-soft: var(--danger-soft);
+  --color-answer-border: var(--answer-border);
+
+  --radius-xs: var(--r-xs);
+  --radius-sm: var(--r-sm);
+  --radius-base: var(--r-base);
+  --radius-md: var(--r-base);
+  --radius-lg: var(--r-lg);
+  --radius-xl: var(--r-xl);
+  --radius-full: var(--r-full);
+}
+
+/* Typography utilities built from the tokens above. Mobile-first, desktop sizes from md. */
+@utility text-h1 {
+  font-size: var(--fs-h1-mobile);
+  line-height: var(--lh-h1-mobile);
+  font-weight: 700;
+  @media (width >= theme(--breakpoint-md)) {
+    font-size: var(--fs-h1);
+    line-height: var(--lh-h1);
+  }
+}
+
+@utility text-h2 {
+  font-size: var(--fs-h2-mobile);
+  line-height: var(--lh-h2-mobile);
+  font-weight: 700;
+  @media (width >= theme(--breakpoint-md)) {
+    font-size: var(--fs-h2);
+    line-height: var(--lh-h2);
+  }
+}
+
+@utility text-h3 {
+  font-size: var(--fs-h3);
+  line-height: var(--lh-h3);
+  font-weight: 600;
+}
+
+@utility text-title {
+  font-size: var(--fs-title-mobile);
+  line-height: var(--lh-title-mobile);
+  font-weight: 700;
+  @media (width >= theme(--breakpoint-md)) {
+    font-size: var(--fs-title);
+    line-height: var(--lh-title);
+  }
+}
+
+@utility text-metric {
+  font-size: var(--fs-metric);
+  line-height: var(--lh-metric);
+  font-weight: 800;
+}
+
+@utility text-stat {
+  font-size: var(--fs-stat-mobile);
+  line-height: var(--lh-stat-mobile);
+  font-weight: 700;
+  @media (width >= theme(--breakpoint-md)) {
+    font-size: var(--fs-stat);
+    line-height: var(--lh-stat);
+  }
+}
+
+@utility text-body-xl {
+  font-size: var(--fs-body-xl-mobile);
+  line-height: var(--lh-body-xl-mobile);
+  @media (width >= theme(--breakpoint-md)) {
+    font-size: var(--fs-body-xl);
+    line-height: var(--lh-body-xl);
+  }
+}
+
+@utility text-body-lg {
+  font-size: var(--fs-body-lg);
+  line-height: var(--lh-body-lg);
+}
+
+@utility text-body-md {
+  font-size: var(--fs-body-md);
+  line-height: var(--lh-body-md);
+}
+
+@utility text-body-xs {
+  font-size: var(--fs-body-xs);
+  line-height: var(--lh-body-xs);
+}
+
+@utility text-body-sm {
+  font-size: var(--fs-body-sm);
+  line-height: var(--lh-body-sm);
+}
+
+@utility scrollbar-none {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* ---------- Motion ----------
+ * One easing and one duration scale for the whole site. Everything is a no-op under
+ * prefers-reduced-motion, and reveal states only hide content when scripting is available. */
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translateY(1.5rem);
+  }
+}
+
+@keyframes caret-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes phone-pop {
+  from {
+    opacity: 0;
+    transform: translateY(0.75rem) scale(0.96);
+  }
+}
+
+@keyframes phone-fill {
+  from {
+    transform: scaleX(0);
+  }
+}
+
+@keyframes phone-toast {
+  0% {
+    opacity: 0;
+    transform: translateY(-0.75rem) scale(0.92);
+  }
+  10%,
+  86% {
+    opacity: 1;
+    transform: none;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-0.5rem) scale(0.96);
+  }
+}
+
+@keyframes logo-pulse {
+  to {
+    stroke-dashoffset: -100;
+  }
+}
+
+@keyframes logo-breathe {
+  50% {
+    opacity: 0.55;
+  }
+}
+
+@keyframes loader-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes float {
+  50% {
+    transform: translateY(-0.5rem);
+  }
+}
+
+@utility lift {
+  transition:
+    transform var(--motion-duration-sm) var(--motion-ease),
+    box-shadow var(--motion-duration-sm) var(--motion-ease);
+  @media (hover: hover) and (prefers-reduced-motion: no-preference) {
+    &:hover {
+      transform: translateY(-0.25rem);
+      box-shadow: var(--shadow-lift);
+    }
+  }
+}
+
+/* The toast is only visible while its animation runs. */
+.phone-toast {
+  opacity: 0;
+}
+
+.logo-pulse {
+  /* No motion: the impulses are hidden and the plain logo stays. */
+  display: none;
+}
+
+.caret {
+  display: inline-block;
+  width: 1px;
+  height: 1em;
+  margin-left: 1px;
+  vertical-align: text-bottom;
+  background: currentColor;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .caret {
+    animation: caret-blink 0.9s steps(1) infinite;
+  }
+
+  .hero-stagger > * {
+    animation: reveal-up 0.9s var(--motion-ease) backwards;
+  }
+  .hero-stagger > :nth-child(2) {
+    animation-delay: 120ms;
+  }
+  .hero-stagger > :nth-child(3) {
+    animation-delay: 240ms;
+  }
+  .hero-stagger > :nth-child(4) {
+    animation-delay: 360ms;
+  }
+
+  .phone-pop {
+    animation: phone-pop 0.6s var(--motion-ease) backwards;
+    animation-delay: var(--d, 0ms);
+  }
+  .phone-fill {
+    transform-origin: left;
+    animation: phone-fill 1.2s var(--motion-ease) backwards;
+    animation-delay: var(--d, 0ms);
+  }
+  .phone-toast {
+    animation: phone-toast 3s var(--motion-ease) both;
+    animation-delay: var(--d, 0ms);
+  }
+  .phone-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  /* Fades in after a short delay, so fast navigations never flash the loader. */
+  .page-loader {
+    animation: loader-in 0.3s var(--motion-ease) 150ms backwards;
+  }
+
+  .logo-breathe {
+    animation: logo-breathe 2.2s ease-in-out infinite;
+  }
+  .logo-pulse {
+    display: inline;
+    stroke-dasharray: 20 80;
+    stroke-dashoffset: 0;
+    filter: drop-shadow(0 0 2px var(--primary));
+    animation: logo-pulse 1.8s linear infinite;
+    animation-delay: calc(var(--i, 0) * -150ms);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) and (scripting: enabled) {
+  .reveal:not([data-visible='true']),
+  [data-reveal-group]:not([data-visible='true']) > * {
+    opacity: 0;
+  }
+
+  .reveal[data-visible='true'] {
+    animation: reveal-up var(--motion-duration) var(--motion-ease) backwards;
+    animation-delay: var(--reveal-delay, 0ms);
+  }
+
+  [data-reveal-group][data-visible='true'] > * {
+    animation: reveal-up var(--motion-duration) var(--motion-ease) backwards;
+  }
+  [data-reveal-group][data-visible='true'] > :nth-child(2) {
+    animation-delay: 90ms;
+  }
+  [data-reveal-group][data-visible='true'] > :nth-child(3) {
+    animation-delay: 180ms;
+  }
+  [data-reveal-group][data-visible='true'] > :nth-child(4) {
+    animation-delay: 270ms;
+  }
+  [data-reveal-group][data-visible='true'] > :nth-child(5) {
+    animation-delay: 360ms;
+  }
+  [data-reveal-group][data-visible='true'] > :nth-child(n + 6) {
+    animation-delay: 450ms;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-background text-foreground text-body-md font-sans antialiased;
+  }
+}
+
+/* Rich text written in the admin editor and shown to students (sanitized html from the api). */
+@layer components {
+  .rich-text {
+    @apply text-body-md text-foreground;
+    overflow-wrap: anywhere;
+  }
+  .rich-text > * + * {
+    margin-top: calc(var(--spacing) * 3);
+  }
+  .rich-text h2 {
+    @apply text-h3 text-foreground;
+    margin-top: calc(var(--spacing) * 6);
+  }
+  .rich-text h3 {
+    @apply text-body-lg text-foreground font-bold;
+    margin-top: calc(var(--spacing) * 5);
+  }
+  .rich-text h4 {
+    @apply text-body-md text-foreground font-bold;
+  }
+  .rich-text ul {
+    list-style: disc;
+    padding-left: calc(var(--spacing) * 6);
+  }
+  .rich-text ol {
+    list-style: decimal;
+    padding-left: calc(var(--spacing) * 6);
+  }
+  .rich-text li > p {
+    margin: 0;
+  }
+  .rich-text blockquote {
+    @apply border-primary text-text-secondary;
+    border-left-width: calc(var(--spacing) * 1);
+    padding-left: calc(var(--spacing) * 4);
+  }
+  .rich-text a {
+    @apply text-primary underline;
+    text-underline-offset: 3px;
+  }
+  .rich-text img {
+    @apply rounded-2xl;
+    max-width: 100%;
+    height: auto;
+  }
+  .rich-text hr {
+    @apply border-border;
+  }
+  .rich-text code {
+    @apply bg-background rounded-md;
+    padding: calc(var(--spacing) * 0.5) calc(var(--spacing) * 1.5);
+    font-size: 0.9em;
+  }
+  .rich-text pre {
+    @apply bg-background rounded-2xl;
+    padding: calc(var(--spacing) * 4);
+    overflow-x: auto;
+  }
+  .rich-text pre code {
+    background: none;
+    padding: 0;
+  }
+  .rich-text sub,
+  .rich-text sup {
+    font-size: 0.75em;
+  }
+  .rich-text mark {
+    @apply bg-accent text-foreground rounded-sm;
+  }
+
+  /* The editable area uses the same look, plus a minimum height and no browser outline. */
+  .rich-text-editor .ProseMirror {
+    min-height: calc(var(--spacing) * 48);
+    outline: none;
+  }
+  .rich-text-editor .ProseMirror p.is-editor-empty:first-child::before {
+    @apply text-muted-foreground;
+    content: attr(data-placeholder);
+    float: left;
+    height: 0;
+    pointer-events: none;
+  }
+}

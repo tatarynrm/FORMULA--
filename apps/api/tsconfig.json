@@ -1,0 +1,10 @@
+{
+  "extends": "@formula/config/tsconfig/nest.json",
+  "compilerOptions": {
+    "outDir": "./dist",
+    "removeComments": true,
+    "strictPropertyInitialization": false,
+    "types": ["node", "vitest/globals"]
+  },
+  "include": ["src", "test", "vitest.config.ts"]
+}

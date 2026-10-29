@@ -1,0 +1,17 @@
+**/node_modules
+**/dist
+**/.next
+**/.turbo
+**/.env
+**/.env.*
+!**/.env.example
+.git
+.husky
+deploy/certbot
+noris
+.claude
+**/CLAUDE.md
+AGENTS.md
+*.log
+Dockerfile*
+docker-compose*.yml
