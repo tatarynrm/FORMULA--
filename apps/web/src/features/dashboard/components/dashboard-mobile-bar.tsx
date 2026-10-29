@@ -28,7 +28,7 @@ export function DashboardMobileBar({ homeHref }: DashboardMobileBarProps) {
 
   return (
     <div className="flex items-center justify-between px-4 py-3 lg:hidden">
-      <Logo href={homeHref} />
+      <Logo href={homeHref} animated />
       <div className="flex items-center gap-1">
         <NotificationBell />
         <Sheet open={open} onOpenChange={setOpen}>

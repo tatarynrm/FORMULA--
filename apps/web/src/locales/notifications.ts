@@ -51,6 +51,19 @@ export const notifications = {
     system: 'Системне сповіщення',
   },
 
+  /** The celebration that opens when an admin gives the student access to a subject or subtopics. */
+  unlock: {
+    eyebrow: 'Новий доступ',
+    subject: 'Вам відкрито предмет',
+    subtopic: 'Вам відкрито підтему',
+    subtopics: 'Вам відкрито підтем: {count}',
+    many: 'Вам відкрито нові модулі: {count}',
+    hint: 'Матеріали вже чекають на вас у кабінеті.',
+    open: 'Перейти до навчання',
+    later: 'Пізніше',
+    more: 'та ще {count}',
+  },
+
   // `formatRelativeTime` (lib/format.ts): minutes and hours come from Intl, these two do not.
   relativeTime: {
     justNow: 'щойно',

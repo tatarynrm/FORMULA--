@@ -8,6 +8,7 @@ import { Inject, Injectable, Logger, NotFoundException } from '@nestjs/common';
 
 import { PaginatedResult } from '../../common/paginated-result.js';
 import { AccessService } from '../access/access.service.js';
+import { MailService } from '../mail/mail.service.js';
 import { RealtimeService } from '../realtime/realtime.service.js';
 import type { SendBroadcastDto } from './dto/notifications.dto.js';
 import { NOTIFICATION_CHANNELS, type NotificationChannel } from './notification-channels.js';
@@ -40,6 +41,7 @@ export class NotificationsService {
     private readonly access: AccessService,
     private readonly realtime: RealtimeService,
     @Inject(NOTIFICATION_CHANNELS) private readonly channels: NotificationChannel[],
+    private readonly mail: MailService,
   ) {}
 
   async notify(userId: string, input: NotifyInput): Promise<NotificationItem | null> {
@@ -172,8 +174,9 @@ export class NotificationsService {
       sentBy: senderId,
       recipients,
     });
-    // Every open student tab reloads its bell; other channels will pick the rows up later.
+    // Every open student tab reloads its bell; the email goes out in the background.
     this.realtime.publishToChannel('students', { type: 'notifications.refresh' });
+    this.mail.sendNews({ title: dto.title, body: dto.body, link: dto.link ?? null });
     return broadcast;
   }
 

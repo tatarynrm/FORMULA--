@@ -2,6 +2,7 @@ import Link from 'next/link';
 
 import { Container } from '@/components/common/container';
 import { Logo } from '@/components/common/logo';
+import { CookieSettingsButton } from '@/features/consent/components/cookie-settings-button';
 import { SECTION_IDS } from '@/features/site/constants';
 import { t } from '@/locales';
 
@@ -15,7 +16,7 @@ export function Footer() {
         <div className="bg-card flex flex-col gap-16 rounded-3xl p-6 md:p-10">
           <div className="grid gap-10 md:grid-cols-[2fr_1fr_1fr]">
             <div className="flex max-w-100 flex-col gap-5">
-              <Logo size="lg" />
+              <Logo size="lg" animated />
               <p className="text-body-lg text-text-secondary">{description}</p>
             </div>
 
@@ -55,9 +56,12 @@ export function Footer() {
             <p>
               © {year} {t.brand.name}. {rights}
             </p>
-            <Link href="/privacy" className="hover:text-primary transition-colors">
-              {privacy}
-            </Link>
+            <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
+              <Link href="/privacy" className="hover:text-primary transition-colors">
+                {privacy}
+              </Link>
+              <CookieSettingsButton className="hover:text-primary cursor-pointer transition-colors" />
+            </div>
           </div>
         </div>
       </Container>

@@ -51,6 +51,12 @@ const envSchema = z.object({
   TELEGRAM_MODE: z.enum(['polling', 'webhook']).default('polling'),
   // Secret Telegram sends with every webhook call; the webhook is closed without it.
   TELEGRAM_WEBHOOK_SECRET: optionalText(16),
+  // Email through Resend. Everything about it is off until both the key and the sender are set.
+  RESEND_API_KEY: optionalText(),
+  // The sender shown to people, e.g. `Formula <noreply@formulachem.com.ua>` (the domain must be verified in Resend).
+  MAIL_FROM: optionalText(),
+  // Where replies go, e.g. support@formulachem.com.ua.
+  MAIL_REPLY_TO: optionalText(),
   THROTTLE_TTL_MS: z.coerce.number().int().positive().default(60_000),
   THROTTLE_LIMIT: z.coerce.number().int().positive().default(100),
 });

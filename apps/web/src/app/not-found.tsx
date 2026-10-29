@@ -1,13 +1,30 @@
+import type { Metadata } from 'next';
+
 import { LinkButton } from '@/components/common/link-button';
+import { NotFoundIllustration } from '@/components/common/status-illustrations';
+import { StatusScene } from '@/components/common/status-scene';
 import { t } from '@/locales';
+
+export const metadata: Metadata = {
+  title: t.errors.notFoundTitle,
+  robots: { index: false },
+};
 
 export default function NotFound() {
   return (
-    <main className="flex min-h-dvh flex-col items-center justify-center gap-4 px-4 text-center">
-      <p className="text-stat text-primary">404</p>
-      <h1 className="text-h2 text-foreground">{t.errors.notFoundTitle}</h1>
-      <p className="text-body-md text-muted-foreground max-w-md">{t.errors.notFoundDescription}</p>
-      <LinkButton href="/">{t.errors.notFoundCta}</LinkButton>
-    </main>
+    <StatusScene
+      eyebrow={t.errors.notFoundEyebrow}
+      title={t.errors.notFoundTitle}
+      description={t.errors.notFoundDescription}
+      illustration={<NotFoundIllustration />}
+      actions={
+        <>
+          <LinkButton href="/">{t.errors.notFoundCta}</LinkButton>
+          <LinkButton href="/cabinet" variant="secondary">
+            {t.errors.notFoundSecondaryCta}
+          </LinkButton>
+        </>
+      }
+    />
   );
 }

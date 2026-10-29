@@ -14,6 +14,7 @@ import { parseDurationMs } from '../../common/utils/duration.js';
 import { isUniqueViolation } from '../../common/utils/pg-errors.js';
 import type { Env } from '../../config/env.js';
 import { AccessService } from '../access/access.service.js';
+import { MailService } from '../mail/mail.service.js';
 import { PresenceService } from '../presence/presence.service.js';
 import type { UserRecord } from '../users/user.types.js';
 import { UsersService, toAuthUser } from '../users/users.service.js';
@@ -42,6 +43,7 @@ export class AuthService {
     private readonly refreshTokens: RefreshTokensRepository,
     private readonly jwt: JwtService,
     private readonly config: ConfigService<Env, true>,
+    private readonly mail: MailService,
   ) {
     this.accessTtlMs = parseDurationMs(this.config.get('JWT_ACCESS_TTL', { infer: true }));
     this.refreshTtlMs = parseDurationMs(this.config.get('JWT_REFRESH_TTL', { infer: true }));
@@ -66,6 +68,7 @@ export class AuthService {
     }
 
     await this.presence.touch(user.id);
+    this.mail.sendWelcome(user);
     return this.startSession(user, randomUUID());
   }
 
@@ -119,6 +122,7 @@ export class AuthService {
           googleId: profile.id,
         });
         isNew = true;
+        this.mail.sendWelcome(user);
       }
     }
 

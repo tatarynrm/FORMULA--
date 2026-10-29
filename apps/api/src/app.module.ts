@@ -16,6 +16,7 @@ import { ChatModule } from './modules/chat/chat.module.js';
 import { DatabaseModule } from './modules/database/database.module.js';
 import { FilesModule } from './modules/files/files.module.js';
 import { HealthModule } from './modules/health/health.module.js';
+import { MailModule } from './modules/mail/mail.module.js';
 import { MenuModule } from './modules/menu/menu.module.js';
 import { MessengersModule } from './modules/messengers/messengers.module.js';
 import { NotificationsModule } from './modules/notifications/notifications.module.js';
@@ -54,6 +55,7 @@ import { TestsModule } from './modules/tests/tests.module.js';
     CatalogModule,
     ChatModule,
     FilesModule,
+    MailModule,
     MenuModule,
     MessengersModule,
     NotificationsModule,

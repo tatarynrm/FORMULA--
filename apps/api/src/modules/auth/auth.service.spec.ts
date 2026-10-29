@@ -4,6 +4,7 @@ import { JwtService } from '@nestjs/jwt';
 
 import type { Env } from '../../config/env.js';
 import type { AccessService } from '../access/access.service.js';
+import type { MailService } from '../mail/mail.service.js';
 import type { PresenceService } from '../presence/presence.service.js';
 import type { UserRecord } from '../users/user.types.js';
 import type { UsersService } from '../users/users.service.js';
@@ -124,6 +125,7 @@ function createService() {
     refreshTokens as unknown as RefreshTokensRepository,
     new JwtService(),
     config,
+    { sendWelcome: () => undefined } as unknown as MailService,
   );
   return { service, users, refreshTokens, access };
 }

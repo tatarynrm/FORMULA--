@@ -17,7 +17,7 @@ export function SiteHeader() {
     <header className="sticky top-0 z-40 pt-4 md:pt-10">
       <Container>
         <div className="bg-surface-raised/50 flex items-center justify-between gap-4 rounded-full px-4 py-3 backdrop-blur-md md:px-6 md:py-4">
-          <Logo />
+          <Logo animated />
 
           <nav aria-label={t.brand.name} className="hidden items-center gap-2 lg:flex">
             {SITE_NAV.map((item) => (

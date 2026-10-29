@@ -127,7 +127,7 @@ export function NotificationBell({ className }: NotificationBellProps) {
           </div>
         ) : null}
 
-        <div className="border-border max-h-[min(28rem,60dvh)] overflow-y-auto border-t">
+        <div className="border-border scrollbar-brand max-h-[min(28rem,60dvh)] overflow-y-auto overscroll-contain border-t">
           <NotificationList
             variant="compact"
             limit={POPOVER_LIMIT}
