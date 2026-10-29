@@ -8,29 +8,15 @@ import { PolicyLayout } from '@/features/legal/components/policy-layout';
 import { PolicySection } from '@/features/legal/components/policy-section';
 import { getPrivacyStructuredData } from '@/features/legal/structured-data';
 import { SiteHeader } from '@/features/site/components/site-header';
-import { SITE_NAME } from '@/lib/site';
+import { createPageMetadata } from '@/lib/seo';
 import { t } from '@/locales';
 
-// Page-level `openGraph` replaces the layout's one, so locale and site name are repeated here.
-// The preview image still comes from app/opengraph-image.png.
-export const metadata: Metadata = {
+// The preview picture is app/(public)/privacy/opengraph-image.png (picked up by Next.js).
+export const metadata: Metadata = createPageMetadata({
   title: t.privacy.title,
   description: t.privacy.description,
-  alternates: { canonical: '/privacy' },
-  openGraph: {
-    type: 'website',
-    locale: 'uk_UA',
-    siteName: SITE_NAME,
-    url: '/privacy',
-    title: `${t.privacy.title} | ${SITE_NAME}`,
-    description: t.privacy.description,
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: `${t.privacy.title} | ${SITE_NAME}`,
-    description: t.privacy.description,
-  },
-};
+  path: '/privacy',
+});
 
 export default function PrivacyPage() {
   const { sections, contacts, lastUpdated, toc } = t.privacy;

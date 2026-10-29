@@ -24,9 +24,13 @@ const onest = Onest({
   display: 'swap',
 });
 
-// Site-wide defaults for search engines and link previews. Pages override title/description,
-// private areas (cabinet, admin, auth) opt out with `robots: { index: false }`.
-// The preview image comes from app/opengraph-image.png and app/twitter-image.png.
+// Site-wide defaults for search engines and link previews. They describe the home page, which
+// inherits them (preview picture: app/opengraph-image.png and app/twitter-image.png).
+// Other shareable pages (privacy, sign-in, sign-up) set their own title, canonical, url and
+// preview through `createPageMetadata` (lib/seo.ts) with an `opengraph-image` file next to the
+// page; private areas (cabinet, admin) opt out with `robots: { index: false }`.
+// There is deliberately no site-wide `canonical`: every page would inherit it and claim to be the
+// home page.
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: { default: t.meta.title, template: `%s | ${SITE_NAME}` },
@@ -37,7 +41,6 @@ export const metadata: Metadata = {
   creator: SITE_NAME,
   publisher: SITE_NAME,
   category: 'education',
-  alternates: { canonical: '/' },
   openGraph: {
     type: 'website',
     locale: 'uk_UA',

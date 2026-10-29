@@ -18,6 +18,7 @@ export function getLandingStructuredData(): Record<string, unknown> {
         name: SITE_NAME,
         description: t.meta.organization,
         url: SITE_URL,
+        image: absoluteUrl('/opengraph-image.png'),
         logo: {
           '@type': 'ImageObject',
           url: absoluteUrl('/icon-512.png'),

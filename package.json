@@ -22,6 +22,7 @@
     "db:up": "docker compose up -d postgres redis",
     "db:down": "docker compose down",
     "db:migrate": "npm run db:migrate -w @formula/api",
+    "redeploy": "bash deploy/redeploy.sh",
     "db:psql": "docker compose exec postgres psql -U formula -d formula",
     "prepare": "husky"
   },

@@ -18,8 +18,10 @@ import {
 } from '@/features/landing/sections';
 import { t } from '@/locales';
 
-// The home page uses the site-wide title and description from the root layout; only the
-// canonical URL and the page-specific title are set here.
+// The home page inherits description, Open Graph and Twitter card (with the preview picture
+// app/opengraph-image.png) from the root layout. A page that defines its own `openGraph` would
+// lose that picture, because Next.js replaces the object as a whole, so only title and
+// canonical are set here.
 export const metadata: Metadata = {
   title: { absolute: t.meta.title },
   alternates: { canonical: '/' },

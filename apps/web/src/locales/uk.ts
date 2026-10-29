@@ -543,6 +543,15 @@ export const uk = {
     ],
     ogAlt: 'Formula: підготовка до НМТ і поглиблене навчання біології та хімії',
     organization: 'Formula: онлайн-школа підготовки до НМТ з біології та хімії',
+    // Link previews of the sign-in and sign-up pages (people share these links; they are noindex).
+    login: {
+      description:
+        'Увійди в кабінет студента Formula, щоб продовжити підготовку до НМТ: матеріали, тести та твій прогрес.',
+    },
+    register: {
+      description:
+        'Створи акаунт у Formula й розпочни підготовку до НМТ з біології та хімії: тести з поясненнями, прогрес і чат підтримки.',
+    },
   },
 
   // Privacy policy. Structured data: the page in app/(public)/privacy renders it as-is.

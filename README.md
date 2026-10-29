@@ -52,6 +52,7 @@ npm run dev
 2. Додай сайт у [Google Search Console](https://search.google.com/search-console), підтверди володіння через «HTML-тег» і впиши токен у `GOOGLE_SITE_VERIFICATION`.
 3. Надішли `https://твій-домен/sitemap.xml`. Перевір `https://твій-домен/robots.txt` і превʼю через Rich Results Test (FAQ).
 4. Заміни тексти-заглушки (Lorem ipsum) на реальні, інакше вони потраплять у видачу.
+5. Картинка при поширенні посилання (Telegram, Viber, WhatsApp, Facebook): у кожної публічної сторінки (`/`, `/privacy`, `/login`, `/register`) свій файл `opengraph-image.png` (1200x630) поруч зі сторінкою в `apps/web/src/app`. Адреса картинки в тегах абсолютна й береться з `NEXT_PUBLIC_SITE_URL`, тож у проді там має бути `https://твій-домен`. Після зміни картинки месенджери довго тримають старий кеш: оновлення для Facebook в [Sharing Debugger](https://developers.facebook.com/tools/debug/), для Telegram в боті [@WebpageBot](https://t.me/WebpageBot) (надішли йому посилання).
 
 ## Перший адміністратор
 
